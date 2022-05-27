@@ -1,6 +1,7 @@
 package com.finalproject;
 
 import android.os.Bundle;
+import android.os.DropBoxManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.finalproject.databinding.FragmentFirstBinding;
+import com.finalproject.databinding.ListEntryBinding;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FirstFragment extends Fragment {
 
     RecyclerView itemList;
     ArrayList<ListTaskEntry> tasks;
-    PersonListAdapter adapter;
+    ListAdapter adapter;
+
 
     private FragmentFirstBinding binding;
 
@@ -29,8 +35,46 @@ public class FirstFragment extends Fragment {
     ) {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
+
+
+        itemList = (RecyclerView)binding.getRoot().findViewById(R.id.recyclerView);
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(getActivity());
+        tasks = generateDummyData();
+        adapter = new ListAdapter(tasks);
+
+        itemList.setLayoutManager(LayoutManager);
+        itemList.setAdapter(adapter);
+
+
         return binding.getRoot();
 
+
+
+
+
+
+    }
+
+    public ArrayList<ListTaskEntry> generateDummyData(){
+        ArrayList<ListTaskEntry> returnList = new ArrayList<ListTaskEntry>();
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        returnList.add(new ListTaskEntry("Title", 39.2, 20.3, "asdf adsf That"));
+        return returnList;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -52,31 +96,5 @@ public class FirstFragment extends Fragment {
     }
 
 
-    private class ViewHolder {
 
-
-    private class PersonListAdapter extends RecyclerView.Adapter<ViewHolder>{
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull CustomAdapter.ViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
-    }
-
-    }
 }
