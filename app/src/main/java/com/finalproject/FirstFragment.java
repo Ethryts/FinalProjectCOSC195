@@ -1,7 +1,6 @@
 package com.finalproject;
 
 import android.os.Bundle;
-import android.os.DropBoxManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.finalproject.databinding.FragmentFirstBinding;
-import com.finalproject.databinding.ListEntryBinding;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FirstFragment extends Fragment {
     private static final String TAG = "FirstFragment";
+    public static FirstFragment currentInstance;
     
 
     RecyclerView itemList;
@@ -31,13 +28,31 @@ public class FirstFragment extends Fragment {
 
 
     private FragmentFirstBinding binding;
-
+    
+    public void itemClicked(View v, int adapterPosition)
+    {
+    
+        Bundle bundle = new Bundle();
+        int selection = adapterPosition;
+        bundle.putInt("selection", selection);
+        NavHostFragment.findNavController(FirstFragment.this)
+                       .navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
+    }
+    
+    public static FirstFragment getInstance(){
+        return currentInstance;
+    }
+    
+    
+    
     @Override
     public View onCreateView(
+            
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        currentInstance = this;
+    
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
 

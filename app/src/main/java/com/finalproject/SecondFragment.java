@@ -1,6 +1,7 @@
 package com.finalproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.finalproject.databinding.FragmentSecondBinding;
 
 public class SecondFragment extends Fragment {
+    private static final String TAG = "SecondFragment";
+    
 
     private FragmentSecondBinding binding;
 
@@ -28,6 +31,8 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle b = getArguments();
+        Log.d(TAG, "onViewCreated: " + b.get("selection"));
 
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -78,20 +78,23 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v)
                 {
-                    Log.d(TAG, "onClick: "+ getAdapterPosition());
-                    Bundle bundle = new Bundle();
-                    int selection = getAdapterPosition();
-                    bundle.putInt("selection", selection);
-
-
-
-                    Fragment fragment = new SecondFragment();
-                    FragmentTransaction transaction = MainActivity.mainActivity.getSupportFragmentManager().beginTransaction();
-                    fragment.setArguments(bundle);
-                    transaction.replace(R.id.SecondFragment, fragment ); // give your fragment container id in first parameter
-                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                    transaction.commit();
-
+                	FirstFragment.getInstance().itemClicked(v, getAdapterPosition());
+//                    NavHostFragment.findNavController(.this)
+//                                   .navigate(R.id.action_SecondFragment_to_FirstFragment);
+//                    Log.d(TAG, "onClick: "+ getAdapterPosition());
+//                    Bundle bundle = new Bundle();
+//                    int selection = getAdapterPosition();
+//                    bundle.putInt("selection", selection);
+//
+//
+//
+//                    Fragment fragment = new SecondFragment();
+//                    FragmentTransaction transaction = MainActivity.mainActivity.getSupportFragmentManager().beginTransaction();
+//                    fragment.setArguments(bundle);
+//                    transaction.replace(R.id.SecondFragment, fragment ); // give your fragment container id in first parameter
+//                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+//                    transaction.commit();
+//
 
                     
 

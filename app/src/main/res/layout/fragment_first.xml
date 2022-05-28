@@ -12,5 +12,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/recyclerView" />
+            android:id="@+id/recyclerView"
+            android:background="#EAEAEA" />
 </androidx.constraintlayout.widget.ConstraintLayout>
