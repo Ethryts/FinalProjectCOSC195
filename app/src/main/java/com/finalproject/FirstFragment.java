@@ -2,6 +2,7 @@ package com.finalproject;
 
 import android.os.Bundle;
 import android.os.DropBoxManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,13 @@ import com.finalproject.databinding.FragmentFirstBinding;
 import com.finalproject.databinding.ListEntryBinding;
 
 import java.sql.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FirstFragment extends Fragment {
+    private static final String TAG = "FirstFragment";
+    
 
     RecyclerView itemList;
     ArrayList<ListTaskEntry> tasks;
@@ -39,7 +43,22 @@ public class FirstFragment extends Fragment {
 
         itemList = (RecyclerView)binding.getRoot().findViewById(R.id.recyclerView);
         LinearLayoutManager LayoutManager = new LinearLayoutManager(getActivity());
-        tasks = generateDummyData();
+        try
+        {
+            DatabaseController dc = new DatabaseController(getContext());
+//            dc.writeTask(tasks.get(0));
+//            dc.readTasks(tasks.get(0));
+    
+            Log.d(TAG, "onCreateView: " + dc.countTasks());
+            tasks = dc.getAllTasks();
+            
+            
+            
+            
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
         adapter = new ListAdapter(tasks);
 
         itemList.setLayoutManager(LayoutManager);

@@ -1,10 +1,26 @@
 package com.finalproject;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class ListTaskEntry {
+    
+    @DatabaseField
     String title;
+    
+    @DatabaseField
     double lon;
+    
+    @DatabaseField
     double lat;
+    
+    @DatabaseField
     String description;
+    
+    public ListTaskEntry(){
+    
+    }
 
     public ListTaskEntry(String title, double lon, double lat, String description) {
         this.title = title;

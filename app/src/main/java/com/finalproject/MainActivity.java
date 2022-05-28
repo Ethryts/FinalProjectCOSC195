@@ -1,11 +1,13 @@
 package com.finalproject;
 
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.telecom.ConnectionService;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -19,7 +21,15 @@ import com.finalproject.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.j256.ormlite.*;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.android.*;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

@@ -1,17 +1,23 @@
 package com.finalproject;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavHost;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
+    private static final String TAG = "ListAdapter";
     private static final String Tag = "ListAdapter";
 
     ArrayList<ListTaskEntry> entryList;
@@ -31,6 +37,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     @Override
     public ListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_entry, parent, false);
+    
+    
+        
         return new ViewHolder(view);
     }
 
@@ -50,7 +59,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         return entryList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder
+    {
         private TextView titleText;
         private TextView lonText;
         private TextView latText;
@@ -59,7 +69,24 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+    
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Log.d(TAG, "onClick: "+ getAdapterPosition());
+                    Bundle bundle = new Bundle();
+                    int selection = getAdapterPosition();
+                    bundle.putInt("selection", selection);
+    
+                    FragmentManager fragMan
+                    
+                    
+                            NavHostFragment.findNavController(FirstFragment.this).navigate(SecondFragment.class);
+                    
+                }
+            });
             titleText = itemView.findViewById(R.id.titleText);
             lonText = itemView.findViewById(R.id.lonText);
             latText = itemView.findViewById(R.id.latText);
@@ -81,6 +108,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         public TextView getDescText() {
             return descText;
         }
+    
     }
 
 }
