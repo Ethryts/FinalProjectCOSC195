@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavHost;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +48,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
         holder.getTitleText().setText(entryList.get(position).getTitle());
         holder.getLatText().setText(""+ entryList.get(position).getLat());
         holder.getLonText().setText(""+ entryList.get(position).getLon());
@@ -79,12 +82,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
                     Bundle bundle = new Bundle();
                     int selection = getAdapterPosition();
                     bundle.putInt("selection", selection);
-    
-                    FragmentManager fragMan
+
+
+
+                    Fragment fragment = new SecondFragment();
+                    FragmentTransaction transaction = MainActivity.mainActivity.getSupportFragmentManager().beginTransaction();
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.SecondFragment, fragment ); // give your fragment container id in first parameter
+                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                    transaction.commit();
+
+
                     
-                    
-                            NavHostFragment.findNavController(FirstFragment.this).navigate(SecondFragment.class);
-                    
+
                 }
             });
             titleText = itemView.findViewById(R.id.titleText);

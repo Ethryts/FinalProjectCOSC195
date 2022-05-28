@@ -46,7 +46,7 @@ public class FirstFragment extends Fragment {
         try
         {
             DatabaseController dc = new DatabaseController(getContext());
-//            dc.writeTask(tasks.get(0));
+            dc.writeTask(generateDummyData().get(0));
 //            dc.readTasks(tasks.get(0));
     
             Log.d(TAG, "onCreateView: " + dc.countTasks());
