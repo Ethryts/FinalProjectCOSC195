@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".newEntryFragment">
+
+    <EditText
+            android:layout_width="321dp"
+            android:layout_height="202dp"
+            android:inputType="textMultiLine"
+            android:gravity="start|top"
+            android:ems="10"
+            android:id="@+id/descField"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.47"
+            app:layout_constraintHorizontal_bias="0.277" />
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/titleField"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.075"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.124" />
+
+    <EditText
+            android:layout_width="89dp"
+            android:layout_height="38dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/lonField"
+            app:layout_constraintTop_toBottomOf="@+id/titleField"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintVertical_bias="0.048" />
+
+    <EditText
+            android:layout_width="137dp"
+            android:layout_height="36dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/latField"
+            app:layout_constraintTop_toBottomOf="@+id/titleField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintVertical_bias="0.051"
+            app:layout_constraintStart_toEndOf="@+id/lonField" />
+
+    <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendNewEntryButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+            android:text="get Location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/getLocation"
+            app:layout_constraintStart_toEndOf="@+id/latField"
+            app:layout_constraintTop_toTopOf="@+id/latField"
+            app:layout_constraintBottom_toBottomOf="@+id/latField" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -33,8 +34,20 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle b = getArguments();
         Log.d(TAG, "onViewCreated: " + b.get("selection"));
+        TextView titleText = view.findViewById(R.id.entryTitleText);
+        TextView lonText =view.findViewById(R.id.entryLongText);
+        TextView latText =view.findViewById(R.id.entryLatTest);
+        
+        
+        
+        titleText.setText(b.getString("title"));
+        lonText.setText(b.get("lon").toString());
+        latText.setText(b.get("lat").toString());
+        
+        
+        
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
+        binding.buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(SecondFragment.this)

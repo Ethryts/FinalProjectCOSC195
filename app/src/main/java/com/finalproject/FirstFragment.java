@@ -17,6 +17,7 @@ import com.finalproject.databinding.FragmentFirstBinding;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class FirstFragment extends Fragment {
     private static final String TAG = "FirstFragment";
     public static FirstFragment currentInstance;
@@ -34,7 +35,11 @@ public class FirstFragment extends Fragment {
     
         Bundle bundle = new Bundle();
         int selection = adapterPosition;
-        bundle.putInt("selection", selection);
+        ListTaskEntry entry = tasks.get(adapterPosition);
+        bundle.putString("title", entry.getTitle());
+        bundle.putDouble("lon", entry.getLon());
+        bundle.putDouble("lat", entry.getLat());
+        bundle.putString("desc", entry.getDescription());
         NavHostFragment.findNavController(FirstFragment.this)
                        .navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
     }
@@ -61,14 +66,8 @@ public class FirstFragment extends Fragment {
         try
         {
             DatabaseController dc = new DatabaseController(getContext());
-            dc.writeTask(generateDummyData().get(0));
-//            dc.readTasks(tasks.get(0));
-    
             Log.d(TAG, "onCreateView: " + dc.countTasks());
             tasks = dc.getAllTasks();
-            
-            
-            
             
         } catch (SQLException throwables)
         {

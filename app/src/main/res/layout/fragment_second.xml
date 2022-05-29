@@ -7,7 +7,7 @@
         tools:context=".SecondFragment">
 
     <Button
-            android:id="@+id/button_second"
+            android:id="@+id/buttonReturn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/previous"
@@ -19,28 +19,38 @@
             app:layout_constraintVertical_bias="0.976" />
 
     <TextView
-            android:text="TextView"
+            android:text="Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            tools:layout_editor_absoluteY="27dp"
-            tools:layout_editor_absoluteX="21dp" />
+            android:id="@+id/entryTitleText"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.127" />
 
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            tools:layout_editor_absoluteY="77dp"
-            tools:layout_editor_absoluteX="17dp" />
+            android:text="0.003"
+            android:layout_width="53dp"
+            android:layout_height="17dp"
+            android:id="@+id/entryLongText"
+            app:layout_constraintTop_toBottomOf="@+id/entryTitleText"
+            android:layout_marginTop="52dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.134" />
 
     <TextView
-            android:text="TextView"
+            android:text="entryLatTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            tools:layout_editor_absoluteY="76dp"
-            tools:layout_editor_absoluteX="113dp" />
+            android:id="@+id/entryLatTest"
+            app:layout_constraintStart_toEndOf="@+id/entryLongText"
+            android:layout_marginStart="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintTop_toTopOf="@+id/entryLongText"
+            app:layout_constraintBottom_toBottomOf="@+id/entryLongText" />
 
     <EditText
             android:layout_width="321dp"
@@ -48,7 +58,11 @@
             android:inputType="textMultiLine"
             android:gravity="start|top"
             android:ems="10"
-            android:id="@+id/editTextTextMultiLine"
-            tools:layout_editor_absoluteY="325dp"
-            tools:layout_editor_absoluteX="21dp" />
+            android:id="@+id/descField"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.335"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entryLongText"
+            app:layout_constraintHorizontal_bias="0.533" />
 </androidx.constraintlayout.widget.ConstraintLayout>
