@@ -12,15 +12,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.finalproject.databinding.FragmentFirstBinding;
+import com.finalproject.databinding.FragmentListBinding;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class FirstFragment extends Fragment {
+public class ListFragment extends Fragment {
     private static final String TAG = "FirstFragment";
-    public static FirstFragment currentInstance;
+    public static ListFragment currentInstance;
     
 
     RecyclerView itemList;
@@ -28,7 +28,7 @@ public class FirstFragment extends Fragment {
     ListAdapter adapter;
 
 
-    private FragmentFirstBinding binding;
+    private FragmentListBinding binding;
     
     public void itemClicked(View v, int adapterPosition)
     {
@@ -40,11 +40,11 @@ public class FirstFragment extends Fragment {
         bundle.putDouble("lon", entry.getLon());
         bundle.putDouble("lat", entry.getLat());
         bundle.putString("desc", entry.getDescription());
-        NavHostFragment.findNavController(FirstFragment.this)
+        NavHostFragment.findNavController(ListFragment.this)
                        .navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
     }
     
-    public static FirstFragment getInstance(){
+    public static ListFragment getInstance(){
         return currentInstance;
     }
     
@@ -58,7 +58,7 @@ public class FirstFragment extends Fragment {
     ) {
         currentInstance = this;
     
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentListBinding.inflate(inflater, container, false);
 
 
         itemList = (RecyclerView)binding.getRoot().findViewById(R.id.recyclerView);

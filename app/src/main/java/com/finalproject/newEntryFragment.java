@@ -6,16 +6,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.finalproject.databinding.FragmentSecondBinding;
-
-import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 
@@ -112,7 +107,7 @@ public class newEntryFragment extends Fragment
 					title = (String) ((TextView)view.findViewById(R.id.titleField)).getText().toString();
 					lon = Double.parseDouble((String) (latField).getText().toString());
 					lat = Double.parseDouble((String) (lonField).getText().toString());
-					desc = (String) ((TextView)view.findViewById(R.id.descField)).getText().toString();
+					desc = (String) ((TextView)view.findViewById(R.id.entryDesc)).getText().toString();
 					
 					DatabaseController dc = new DatabaseController(getContext());
 					dc.writeTask(new ListTaskEntry(title,lon,lat,desc));

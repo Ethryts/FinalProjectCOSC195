@@ -55,7 +55,13 @@ public class GPSHandler implements LocationListener
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras)
 	{
-		LocationListener.super.onStatusChanged(provider, status, extras);
+		try{
+			LocationListener.super.onStatusChanged(provider, status, extras);
+			
+		}catch (AbstractMethodError e)
+		{
+		
+		}
 	}
 	
 	@Override

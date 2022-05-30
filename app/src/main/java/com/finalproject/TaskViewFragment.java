@@ -11,13 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.finalproject.databinding.FragmentSecondBinding;
+import com.finalproject.databinding.FragmentTaskViewBinding;
 
-public class SecondFragment extends Fragment {
+public class TaskViewFragment extends Fragment {
     private static final String TAG = "SecondFragment";
     
 
-    private FragmentSecondBinding binding;
+    private FragmentTaskViewBinding binding;
 
     @Override
     public View onCreateView(
@@ -25,7 +25,7 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentTaskViewBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -37,12 +37,15 @@ public class SecondFragment extends Fragment {
         TextView titleText = view.findViewById(R.id.entryTitleText);
         TextView lonText =view.findViewById(R.id.entryLongText);
         TextView latText =view.findViewById(R.id.entryLatTest);
+        TextView descText = view.findViewById(R.id.entryDesc);
         
         
         
         titleText.setText(b.getString("title"));
         lonText.setText(b.get("lon").toString());
         latText.setText(b.get("lat").toString());
+        descText.setText(b.get("desc").toString());
+        
         
         
         
@@ -50,7 +53,7 @@ public class SecondFragment extends Fragment {
         binding.buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
+                NavHostFragment.findNavController(TaskViewFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
