@@ -16,7 +16,7 @@ import com.finalproject.databinding.FragmentTaskViewBinding;
 import java.sql.SQLException;
 
 public class TaskViewFragment extends Fragment {
-    private static final String TAG = "SecondFragment";
+    private static final String TAG = "TaskViewFragment";
     
 
     private FragmentTaskViewBinding binding;
@@ -35,6 +35,7 @@ public class TaskViewFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        task =  new ListTaskEntry();
         Bundle b = getArguments();
 
         Log.d(TAG, "onViewCreated: " + b.get("selection"));
@@ -68,13 +69,13 @@ public class TaskViewFragment extends Fragment {
             }
         });
 
-        binding.buttonReturn.setOnClickListener(new View.OnClickListener(){
+        binding.deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 try {
                     DatabaseController db = new DatabaseController(getContext());
+                    NavHostFragment.findNavController(TaskViewFragment.this).navigate(R.id.action_SecondFragment_to_FirstFragment);
                     db.deleteTask(task);
-                    NavHostFragment.findNavController(TaskViewFragment.this).navigate(R.id.action_newEntryFragment_to_FirstFragment);
 
 
 
@@ -89,7 +90,10 @@ public class TaskViewFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        
         binding = null;
+        
     }
-
+    
+    
 }

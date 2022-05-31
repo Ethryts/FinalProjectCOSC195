@@ -105,8 +105,8 @@ public class newEntryFragment extends Fragment
 				try
 				{
 					title = (String) ((TextView)view.findViewById(R.id.titleField)).getText().toString();
-					lon = Double.parseDouble((String) (latField).getText().toString());
-					lat = Double.parseDouble((String) (lonField).getText().toString());
+					lon = Double.parseDouble((String) (lonField).getText().toString());
+					lat = Double.parseDouble((String) (latField).getText().toString());
 					desc = (String) ((TextView)view.findViewById(R.id.entryDesc)).getText().toString();
 					
 					DatabaseController dc = new DatabaseController(getContext());

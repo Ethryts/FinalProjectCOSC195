@@ -3,6 +3,7 @@ package com.finalproject;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -76,11 +77,14 @@ public class DatabaseController
 	 */
 	public void deleteTask(ListTaskEntry taskEntry)
 	{
+		Log.d(TAG, "deleteTask: Attempting to delete " + taskEntry.getTitle() );
 		try
 		{
 			dao.delete(taskEntry);
+			Log.d(TAG, "deleteTask: Succeded to delete " + taskEntry.getTitle() );
 		} catch (SQLException throwables)
 		{
+			Log.d(TAG, "deleteTask: Failed to delete " + taskEntry.getTitle() );
 			throwables.printStackTrace();
 		}
 	}

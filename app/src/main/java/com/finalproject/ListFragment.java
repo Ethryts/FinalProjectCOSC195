@@ -5,8 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,18 +18,20 @@ import com.finalproject.databinding.FragmentListBinding;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class ListFragment extends Fragment {
-    private static final String TAG = "FirstFragment";
+    private static final String TAG = "ListFragment";
     public static ListFragment currentInstance;
     
 
     RecyclerView itemList;
     ArrayList<ListTaskEntry> tasks;
     ListAdapter adapter;
-
-
+    
+    
+    
     private FragmentListBinding binding;
     
     public void itemClicked(View v, int adapterPosition)
@@ -49,8 +53,6 @@ public class ListFragment extends Fragment {
     public static ListFragment getInstance(){
         return currentInstance;
     }
-    
-    
     
     @Override
     public View onCreateView(
@@ -80,14 +82,37 @@ public class ListFragment extends Fragment {
         itemList.setLayoutManager(LayoutManager);
         itemList.setAdapter(adapter);
 
+        
+        
+        View view = binding.getRoot();
+        TextView searchTextView = view.findViewById(R.id.searchTextBox);
+        view.findViewById(R.id.searchButton).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    DatabaseController dc = new DatabaseController(getContext());
+                CharSequence searchText =  searchTextView.getText();
+                tasks = dc.getAllTasks();
+                tasks =
+                        tasks.stream().filter(e-> e.getTitle().contains(searchText)).collect(Collectors.toCollection(ArrayList::new));
+                    adapter = new ListAdapter(tasks);
+    
+                    itemList.setAdapter(adapter);
+    
+                } catch (SQLException throwables)
+                {
+                    throwables.printStackTrace();
+                }
+        
+            }
+        });
+        
+        
 
-        return binding.getRoot();
-
-
-
-
-
-
+        return  view;
     }
 
     public ArrayList<ListTaskEntry> generateDummyData(){
@@ -126,10 +151,21 @@ public class ListFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        Log.d(TAG, "onDestroyView: ");
         super.onDestroyView();
         binding = null;
+        MainActivity.mainActivity.getBinding().fab.setVisibility(View.INVISIBLE);
     }
-
-
+    
+    @Override
+    public void onResume()
+    {
+        Log.d(TAG, "onResume: ");
+        
+        super.onResume();
+        MainActivity.mainActivity.getBinding().fab.setVisibility(View.VISIBLE);
+        
+    }
+    
 
 }

@@ -21,7 +21,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 	
 	public static final String DATABASE_NAME = "task.db";
 	
-	private static final int DATABASE_VERSION =1;
+	private static final int DATABASE_VERSION =2;
 	
 	
 	private Dao<ListTaskEntry, Integer> dao = null;

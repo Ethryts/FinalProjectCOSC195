@@ -2,12 +2,19 @@ package com.finalproject;
 
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.Data;
+import androidx.work.ListenableWorker;
+import androidx.work.WorkerParameters;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
+import java.util.UUID;
 
 public class GPSHandler implements LocationListener
 {
@@ -20,15 +27,21 @@ public class GPSHandler implements LocationListener
 	}
 	
 	public GPSHandler(){
+		super();
 		if(GPSHandler.getInstance() == null)
 		{
 			GPSHandler.currentInstance = this;
 		}
 	}
 	
+	
 	public static Location getLastLocation()
 	{
 		return lastLocation;
+	}
+	public void pollLocation()
+	{
+	
 	}
 	
 	@Override
@@ -75,4 +88,8 @@ public class GPSHandler implements LocationListener
 	{
 		LocationListener.super.onProviderDisabled(provider);
 	}
+	
+	
+	
+	
 }
