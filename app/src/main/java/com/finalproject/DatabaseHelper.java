@@ -1,5 +1,6 @@
 package com.finalproject;
 
+
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,7 +21,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 	
 	public static final String DATABASE_NAME = "task.db";
 	
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION =1;
 	
 	
 	private Dao<ListTaskEntry, Integer> dao = null;
