@@ -97,6 +97,16 @@ public class DatabaseController
 		}
 		return null;
 	}
+
+	public ListTaskEntry getTaskMatches(ListTaskEntry task)
+	{
+		try {
+			return(ListTaskEntry) dao.queryForMatching(task).get(0);
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 }

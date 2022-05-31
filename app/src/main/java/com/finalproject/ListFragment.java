@@ -36,6 +36,8 @@ public class ListFragment extends Fragment {
         Bundle bundle = new Bundle();
         int selection = adapterPosition;
         ListTaskEntry entry = tasks.get(adapterPosition);
+
+        bundle.putLong("id",entry.getId());
         bundle.putString("title", entry.getTitle());
         bundle.putDouble("lon", entry.getLon());
         bundle.putDouble("lat", entry.getLat());

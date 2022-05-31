@@ -3,14 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/fragment_first.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/fragment_list.xml" value="0.234375" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/fragment_second.xml" value="0.2578125" />
-        <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/fragment_task_view.xml" value="0.25" />
-        <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/fragment_third.xml" value="0.2" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/list_entry.xml" value="0.22" />
-        <entry key="..\:/Users/Ethan/AndroidStudioProjects/FinalProjectCOSC195/app/src/main/res/layout/new_entry_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/Ethan/StudioProjects/FinalProjectCOSC195/app/src/main/res/layout/fragment_task_view.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Ethan/StudioProjects/FinalProjectCOSC195/app/src/main/res/layout/new_entry_fragment.xml" value="0.1" />
         <entry key="..\:/Users/cst119/Documents/FinalProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.241" />
         <entry key="..\:/Users/cst119/Documents/FinalProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.241" />
         <entry key="..\:/Users/cst119/Documents/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -21,7 +18,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

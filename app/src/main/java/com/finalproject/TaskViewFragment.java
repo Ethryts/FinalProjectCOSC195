@@ -13,11 +13,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.finalproject.databinding.FragmentTaskViewBinding;
 
+import java.sql.SQLException;
+
 public class TaskViewFragment extends Fragment {
     private static final String TAG = "SecondFragment";
     
 
     private FragmentTaskViewBinding binding;
+    private ListTaskEntry task;
 
     @Override
     public View onCreateView(
@@ -33,7 +36,14 @@ public class TaskViewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle b = getArguments();
+
         Log.d(TAG, "onViewCreated: " + b.get("selection"));
+        task.setId(b.getLong("id"));
+        try {
+            task = new DatabaseController(getContext()).getTaskMatches(task);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         TextView titleText = view.findViewById(R.id.entryTitleText);
         TextView lonText =view.findViewById(R.id.entryLongText);
         TextView latText =view.findViewById(R.id.entryLatTest);
@@ -55,6 +65,23 @@ public class TaskViewFragment extends Fragment {
             public void onClick(View view) {
                 NavHostFragment.findNavController(TaskViewFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
+            }
+        });
+
+        binding.buttonReturn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                try {
+                    DatabaseController db = new DatabaseController(getContext());
+                    db.deleteTask(task);
+                    NavHostFragment.findNavController(TaskViewFragment.this).navigate(R.id.action_newEntryFragment_to_FirstFragment);
+
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

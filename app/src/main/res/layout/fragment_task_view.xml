@@ -17,28 +17,52 @@
             app:layout_constraintVertical_bias="0.07999998">
 
         <TextView
-                android:text="0.003"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/entryLongText"
-                tools:layout_editor_absoluteY="105dp"
-                tools:layout_editor_absoluteX="251dp" />
+            android:id="@+id/entryLongText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.003"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.618"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.633" />
 
         <TextView
-                android:text="Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/entryTitleText"
-                tools:layout_editor_absoluteY="55dp"
-                tools:layout_editor_absoluteX="58dp" />
+            android:id="@+id/entryTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.244" />
 
         <TextView
-                android:text="entryLatTest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/entryLatTest"
-                tools:layout_editor_absoluteY="105dp"
-                tools:layout_editor_absoluteX="50dp" />
+            android:id="@+id/entryLatTest"
+            android:layout_width="80dp"
+            android:layout_height="21dp"
+            android:text="entryLatTest"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.642" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="48dp"
+            android:layout_height="47dp"
+            android:text="X"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.981"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.045" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,6 +103,7 @@
                 app:layout_constraintVertical_bias="0.968"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.144" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
