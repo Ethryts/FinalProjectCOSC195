@@ -2,14 +2,18 @@ package com.finalproject;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 
+import static com.finalproject.GPSHandler.*;
+
 import android.Manifest;
 import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.finalproject.databinding.FragmentListBinding;
@@ -45,6 +49,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import com.j256.ormlite.*;
 import com.j256.ormlite.support.ConnectionSource;
@@ -102,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 
 //        PeriodicWorkRequest gpsRequest = new PeriodicWorkRequest.Builder(GPSHandler.class, 15,
 //                                                                         TimeUnit.MINUTES).build();
+//        Intent intent = new Intent(this, GPSService.class);
+//        startService(intent);
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(new Runnable()
         {
@@ -123,9 +130,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener
                         // for ActivityCompat#requestPermissions for more details.
                         return;
                     }
+
+                    Consumer<Location> locationConsumer = location -> {
+                        Log.d(TAG, "run: inside the Consumer Location is " + location);
+                        GPSHandler.lastLocation= location;
+                    };
 //                    Location lastLocation = locationManager.getLastKnownLocation(GPS_PROVIDER);
-                    Location lastLocation = locationManager.getCurrentLocation(GPS_PROVIDER,
-                                                                               new CancellationSignal(), Executors.newSingleThreadExecutor(), e->{});
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        locationManager.getCurrentLocation(
+                                GPS_PROVIDER,
+                                new CancellationSignal(),
+                                Executors.newSingleThreadExecutor(),
+                                locationConsumer
+                        );
+                    }
+                    lastLocation = lastLocation;
+
+
+
                     Location taskLocation = new Location((String) null);
                     dc.getAllTasks().forEach(e->{
                         taskLocation.setLongitude((float)e.getLon());
@@ -135,35 +157,37 @@ public class MainActivity extends AppCompatActivity implements LocationListener
                         double lat = (float)e.getLat();
                         float[] results = new float[1];
                         Log.d(TAG, "run: Lat: "+ lat +", Lon: " + lon);
-                        
-                        
+
+
 //                        Location.distanceBetween(lat,lon, lastLocation.getLatitude(),
 //                                                 lastLocation.getLongitude(),results);
-                     
+
 	                    float dist = lastLocation.distanceTo(taskLocation);
-                        Log.d(TAG, "run: distance ="+ dist);
-                        
-                        if(dist < ACCURACY_METERS)
-                        {
+                        LocationManager lm;
+
+                        Log.d(TAG, "run: distance =" + dist);
+
+//                        if(dist < ACCURACY_METERS)
+//                        {
 //                            Notification new
-                        }
-                        
+//                        }
+
                     });
 
-                    
-                    
-                    
-                    
+
+
+
+
                 } catch (SQLException throwables)
                 {
                     throwables.printStackTrace();
                 };
-	            
-            	
-        
+
+
+
             }
         }, 0, 10, TimeUnit.SECONDS);
-    
+
     }
     
     private void onCreateListeners(){

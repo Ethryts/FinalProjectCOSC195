@@ -20,7 +20,7 @@ public class GPSHandler implements LocationListener
 {
 	private static final String TAG = "GPSHandler";
 	private static GPSHandler currentInstance;
-	private static Location lastLocation;
+	public static Location lastLocation;
 	
 	public static GPSHandler getInstance(){
 		return currentInstance;
