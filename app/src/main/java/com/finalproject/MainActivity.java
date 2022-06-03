@@ -1,59 +1,55 @@
 package com.finalproject;
 
+import static android.location.LocationManager.FUSED_PROVIDER;
 import static android.location.LocationManager.GPS_PROVIDER;
 
 import static com.finalproject.GPSHandler.*;
 
 import android.Manifest;
-import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.finalproject.databinding.FragmentListBinding;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.CancellationSignal;
-import android.telecom.ConnectionService;
 import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDeepLink;
+import androidx.navigation.NavDeepLinkBuilder;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import com.finalproject.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-
-import com.j256.ormlite.*;
-import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.android.*;
 
 
 public class MainActivity extends AppCompatActivity implements LocationListener
@@ -103,15 +99,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener
             return;
         }
         locationManager.requestLocationUpdates(GPS_PROVIDER, 10, 10, gpsHandler);
+//        locationManager.requestLocationUpdates(FUSED_PROVIDER, 10, 10, gpsHandler);
 
 
 //        PeriodicWorkRequest gpsRequest = new PeriodicWorkRequest.Builder(GPSHandler.class, 15,
 //                                                                         TimeUnit.MINUTES).build();
 //        Intent intent = new Intent(this, GPSService.class);
 //        startService(intent);
+        
+        
+        ScheduledExecutorService testScheduler = Executors.newScheduledThreadPool(1);
+        testScheduler.scheduleAtFixedRate(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+    
+            }
+        }, 0,10, TimeUnit.SECONDS);
+        
+        
+        
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(new Runnable()
         {
+            
+            
             @Override
             public void run()
             {
@@ -130,13 +143,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener
                         // for ActivityCompat#requestPermissions for more details.
                         return;
                     }
-
+                    
                     Consumer<Location> locationConsumer = location -> {
                         Log.d(TAG, "run: inside the Consumer Location is " + location);
                         GPSHandler.lastLocation= location;
+                        GPSHandler.getInstance().setLocalLocal(location);
                     };
 //                    Location lastLocation = locationManager.getLastKnownLocation(GPS_PROVIDER);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        Log.d(TAG, "run: This is inside the version THing");
                         locationManager.getCurrentLocation(
                                 GPS_PROVIDER,
                                 new CancellationSignal(),
@@ -144,7 +159,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener
                                 locationConsumer
                         );
                     }
-                    lastLocation = lastLocation;
+                    else{
+    
+                        Log.d(TAG, "run: Test");
+                    }
 
 
 
@@ -153,19 +171,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener
                         taskLocation.setLongitude((float)e.getLon());
                         taskLocation.setLatitude((float)e.getLat());
                         Log.d(TAG, "run: Getting Location");
-                        double lon = (float)e.getLon();
-                        double lat = (float)e.getLat();
-                        float[] results = new float[1];
-                        Log.d(TAG, "run: Lat: "+ lat +", Lon: " + lon);
-
+                        Log.d(TAG,
+                              "run: TaskLocation Lat: "+ taskLocation.getLatitude()  +", Lon: " + taskLocation.getLongitude());
+                        GPSHandler.getInstance().getLocalLocal();
+                        Log.d(TAG, "run: LastLocation Lat: "+ lastLocation.getLatitude() +", Lon:" +
+                                   " " + lastLocation.getLongitude());
+    
+                        Log.d(TAG, "run: ===============================================");
 
 //                        Location.distanceBetween(lat,lon, lastLocation.getLatitude(),
 //                                                 lastLocation.getLongitude(),results);
 
-	                    float dist = lastLocation.distanceTo(taskLocation);
-                        LocationManager lm;
-
-                        Log.d(TAG, "run: distance =" + dist);
+//	                    float dist = lastLocation.distanceTo(taskLocation);
+//                        LocationManager lm;
+//
+//                        Log.d(TAG, "run: distance =" + dist);
 
 //                        if(dist < ACCURACY_METERS)
 //                        {
@@ -182,9 +202,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener
                 {
                     throwables.printStackTrace();
                 };
-
-
-
             }
         }, 0, 10, TimeUnit.SECONDS);
 
@@ -201,10 +218,65 @@ public class MainActivity extends AppCompatActivity implements LocationListener
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 navController.navigate(R.id.action_FirstFragment_to_newEntryFragment,bundle);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
+    }
+    
+    
+    public void sendNotification(ListTaskEntry entry){
+    
+        Log.d(TAG, "sendNotification: ");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("Channel_1", "name",
+                                                                  NotificationManager.IMPORTANCE_LOW);
+            channel.setShowBadge(true); // set false to disable badges, Oreo exclusive
+    
+            NotificationManager notificationManager =
+                    (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+        // the check ensures that the channel will only be made
+        // if the device is running Android 8+
+    
+        NotificationCompat.Builder notification =
+                new NotificationCompat.Builder(this, "Channel_1");
+        // the second parameter is the channel id.
+        // it should be the same as passed to the makeNotificationChannel() method
+    
+    
+        Bundle bundle = new Bundle();
+    
+        bundle.putLong("id",entry.getId());
+        bundle.putString("title", entry.getTitle());
+        bundle.putDouble("lon", entry.getLon());
+        bundle.putDouble("lat", entry.getLat());
+        bundle.putString("desc", entry.getDescription());
+        
+        
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        PendingIntent intent = new NavDeepLinkBuilder(getApplicationContext())
+                .setComponentName(MainActivity.class)
+                .setGraph(R.navigation.nav_graph)
+                .setDestination(R.id.SecondFragment)
+                .setArguments(bundle)
+                .createPendingIntent();
+        
+        notification
+                .setSmallIcon(R.mipmap.ic_launcher) // can use any other icon
+                .setContentTitle("Reminder for this Location!")
+                .setContentText("You have a reminder titled: " + entry.getTitle() + " for this " +
+                                "location")
+                .setContentIntent(intent);
+    
+        
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    
+        assert notificationManager != null;
+        notificationManager.notify(1, notification.build());
+        // it is better to not use 0 as notification id, so used 1.
+        
     }
 
     @Override

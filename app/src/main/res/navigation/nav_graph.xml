@@ -13,13 +13,17 @@
 
         <action
                 android:id="@+id/action_FirstFragment_to_SecondFragment"
-                app:destination="@id/SecondFragment" />
+                app:destination="@id/SecondFragment"
+                app:enterAnim="@android:anim/slide_in_left"
+                app:exitAnim="@android:anim/slide_out_right" />
         <action
                 android:id="@+id/action_FirstFragment_to_newEntryFragment"
                 app:destination="@id/newEntryFragment" />
         <action
                 android:id="@+id/action_FirstFragment_to_newEntryFragment2"
-                app:destination="@id/newEntryFragment" />
+                app:destination="@id/newEntryFragment"
+                app:enterAnim="@android:anim/fade_in"
+                app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
             android:id="@+id/SecondFragment"
@@ -29,7 +33,9 @@
 
         <action
                 android:id="@+id/action_SecondFragment_to_FirstFragment"
-                app:destination="@id/FirstFragment" />
+                app:destination="@id/FirstFragment"
+                app:enterAnim="@android:anim/fade_in"
+                app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
             android:id="@+id/newEntryFragment"
@@ -38,6 +44,8 @@
             tools:layout="@layout/new_entry_fragment" >
         <action
                 android:id="@+id/action_newEntryFragment_to_FirstFragment"
-                app:destination="@id/FirstFragment" />
+                app:destination="@id/FirstFragment"
+                app:enterAnim="@android:anim/fade_out"
+                app:exitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>

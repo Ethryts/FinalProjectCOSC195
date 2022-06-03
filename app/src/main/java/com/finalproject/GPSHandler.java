@@ -4,6 +4,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.DropBoxManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.work.WorkerParameters;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,9 +23,23 @@ public class GPSHandler implements LocationListener
 	private static final String TAG = "GPSHandler";
 	private static GPSHandler currentInstance;
 	public static Location lastLocation;
+	public Location localLocal;
+	private static final int DISTANCE_FOR_CLOSE = 100;
+	
 	
 	public static GPSHandler getInstance(){
 		return currentInstance;
+	}
+	
+	
+	public void setLocalLocal(Location localLocal)
+	{
+		this.localLocal = localLocal;
+	}
+	
+	public Location getLocalLocal()
+	{
+		return localLocal;
 	}
 	
 	public GPSHandler(){
@@ -39,8 +55,19 @@ public class GPSHandler implements LocationListener
 	{
 		return lastLocation;
 	}
-	public void pollLocation()
+	
+	public void pollLocation(Location location)
 	{
+		ArrayList<ListTaskEntry>  list = ListFragment.getInstance().tasks;
+		list.forEach(task->{
+			Location taskLocation = new Location((String) null);
+			taskLocation.setLongitude(task.getLon());
+			taskLocation.setLatitude(task.getLat());
+			if(location.distanceTo(taskLocation) < DISTANCE_FOR_CLOSE){
+				Log.d(TAG, "pollLocation: close To Task");
+				MainActivity.mainActivity.sendNotification(task);
+			}
+		});
 	
 	}
 	
@@ -49,6 +76,7 @@ public class GPSHandler implements LocationListener
 	{
 		lastLocation = location;
 		Log.d(TAG, "onLocationChanged: " + location.getLatitude() + ", " + location.getLongitude());
+		pollLocation(location);
 	}
 	
 	
