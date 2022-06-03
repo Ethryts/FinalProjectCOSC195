@@ -1,8 +1,11 @@
 package com.finalproject;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -108,13 +111,20 @@ public class newEntryFragment extends Fragment
 					lon = Double.parseDouble((String) (lonField).getText().toString());
 					lat = Double.parseDouble((String) (latField).getText().toString());
 					desc = (String) ((TextView)view.findViewById(R.id.entryDesc)).getText().toString();
+
+					if (title != null || desc != null)
+					{
+						DatabaseController dc = new DatabaseController(getContext());
+						dc.writeTask(new ListTaskEntry(title,lon,lat,desc));
+					}
+
 					
-					DatabaseController dc = new DatabaseController(getContext());
-					dc.writeTask(new ListTaskEntry(title,lon,lat,desc));
-				} catch (SQLException throwables)
-				{
+				} catch (SQLException throwables) {
 					throwables.printStackTrace();
-				}
+				} catch(NullPointerException e)
+				{
+
+				} catch (NumberFormatException e){}
 				NavHostFragment.findNavController(newEntryFragment.this).navigate(R.id.action_newEntryFragment_to_FirstFragment);
 			}
 		});
@@ -124,12 +134,12 @@ public class newEntryFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				
 				Location location = GPSHandler.getLastLocation();
-				latField.setText( "" +location.getLatitude());
-				lonField.setText( "" +location.getLongitude());
-				
-				
+				if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+				{
+					latField.setText( "" +location.getLatitude());
+					lonField.setText( "" +location.getLongitude());
+				}
 			}
 		});
 		

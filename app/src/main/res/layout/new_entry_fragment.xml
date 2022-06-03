@@ -60,7 +60,7 @@
             app:layout_constraintStart_toEndOf="@+id/lonField" />
 
     <Button
-            android:text="Button"
+            android:text="Send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sendNewEntryButton"

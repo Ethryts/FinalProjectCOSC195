@@ -16,7 +16,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0"
             android:background="#ECECEC"
-            app:layout_constraintHorizontal_bias="0.0">
+            app:layout_constraintHorizontal_bias="1.0">
 
         <TextView
                 android:id="@+id/entryTitleText"
@@ -25,10 +25,10 @@
                 android:text="Title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.219"
+                app:layout_constraintHorizontal_bias="0.081"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.128"
+                app:layout_constraintVertical_bias="0.15"
                 android:background="#FFFFFF"
                 android:textStyle="bold"
                 android:textAlignment="center"
@@ -41,11 +41,11 @@
                 android:text="0.003"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.829"
+                app:layout_constraintHorizontal_bias="0.855"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.632"
-                android:background="#FFFFFF" />
+                app:layout_constraintVertical_bias="0.18"
+                android:background="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@+id/entryTitleText" />
 
         <TextView
                 android:id="@+id/entryLatTest"
@@ -54,11 +54,11 @@
                 android:text="entryLatTest"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.253"
+                app:layout_constraintHorizontal_bias="0.357"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.629"
-                android:background="#FFFFFF" />
+                app:layout_constraintVertical_bias="0.172"
+                android:background="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@+id/entryTitleText" />
 
         <Button
                 android:id="@+id/deleteButton"
@@ -81,7 +81,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/entryLatTest"
                 app:layout_constraintTop_toTopOf="@+id/entryLatTest"
                 android:id="@+id/textView4"
-                app:layout_constraintHorizontal_bias="0.781"
+                app:layout_constraintHorizontal_bias="0.769"
                 app:layout_constraintVertical_bias="1.0" />
 
         <TextView
@@ -93,19 +93,19 @@
                 app:layout_constraintBottom_toBottomOf="@+id/entryLongText"
                 app:layout_constraintEnd_toStartOf="@+id/entryLongText"
                 app:layout_constraintStart_toEndOf="@+id/entryLatTest"
-                app:layout_constraintHorizontal_bias="0.761"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="413dp"
-            android:layout_height="563dp"
+            android:layout_width="405dp"
+            android:layout_height="462dp"
             android:id="@+id/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.888"
+            app:layout_constraintVertical_bias="0.816"
             app:layout_constraintTop_toBottomOf="@+id/taskViewTopPane"
             android:background="#EDEDED">
 

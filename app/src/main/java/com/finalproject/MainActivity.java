@@ -18,9 +18,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -98,90 +95,72 @@ public class MainActivity extends AppCompatActivity implements LocationListener
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+//
         locationManager.requestLocationUpdates(GPS_PROVIDER, 10, 10, gpsHandler);
-//        locationManager.requestLocationUpdates(FUSED_PROVIDER, 10, 10, gpsHandler);
-
-
-//        PeriodicWorkRequest gpsRequest = new PeriodicWorkRequest.Builder(GPSHandler.class, 15,
-//                                                                         TimeUnit.MINUTES).build();
-//        Intent intent = new Intent(this, GPSService.class);
-//        startService(intent);
-        
-        
-        ScheduledExecutorService testScheduler = Executors.newScheduledThreadPool(1);
-        testScheduler.scheduleAtFixedRate(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-    
-            }
-        }, 0,10, TimeUnit.SECONDS);
-        
-        
-        
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(new Runnable()
-        {
-            
-            
-            @Override
-            public void run()
-            {
-                try
-                {
-                    DatabaseController dc = new DatabaseController(getApplicationContext());
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                                                           Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                    {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }
-                    
-                    Consumer<Location> locationConsumer = location -> {
-                        Log.d(TAG, "run: inside the Consumer Location is " + location);
-                        GPSHandler.lastLocation= location;
-                        GPSHandler.getInstance().setLocalLocal(location);
-                    };
+//        bellow I attempted to utilize the scheduled executorservice to handle background gps notifications, I could not get it to work properly
+//
+//        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+//        scheduler.scheduleAtFixedRate(new Runnable()
+//        {
+//
+//
+//            @Override
+//            public void run()
+//            {
+//                try
+//                {
+//                    DatabaseController dc = new DatabaseController(getApplicationContext());
+//                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+//                                                           Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+//                    {
+//                         TODO: Consider calling
+//                            ActivityCompat#requestPermissions
+//                         here to request the missing permissions, and then overriding
+//                           public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                                                  int[] grantResults)
+//                         to handle the case where the user grants the permission. See the documentation
+//                         for ActivityCompat#requestPermissions for more details.
+//                        return;
+//                    }
+//
+//                    Consumer<Location> locationConsumer = location -> {
+//                        Log.d(TAG, "run: inside the Consumer Location is " + location);
+//                        GPSHandler.lastLocation= location;
+//                        GPSHandler.getInstance().setLocalLocal(location);
+//                    };
 //                    Location lastLocation = locationManager.getLastKnownLocation(GPS_PROVIDER);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        Log.d(TAG, "run: This is inside the version THing");
-                        locationManager.getCurrentLocation(
-                                GPS_PROVIDER,
-                                new CancellationSignal(),
-                                Executors.newSingleThreadExecutor(),
-                                locationConsumer
-                        );
-                    }
-                    else{
-    
-                        Log.d(TAG, "run: Test");
-                    }
-
-
-
-                    Location taskLocation = new Location((String) null);
-                    dc.getAllTasks().forEach(e->{
-                        taskLocation.setLongitude((float)e.getLon());
-                        taskLocation.setLatitude((float)e.getLat());
-                        Log.d(TAG, "run: Getting Location");
-                        Log.d(TAG,
-                              "run: TaskLocation Lat: "+ taskLocation.getLatitude()  +", Lon: " + taskLocation.getLongitude());
-                        GPSHandler.getInstance().getLocalLocal();
-                        Log.d(TAG, "run: LastLocation Lat: "+ lastLocation.getLatitude() +", Lon:" +
-                                   " " + lastLocation.getLongitude());
-    
-                        Log.d(TAG, "run: ===============================================");
-
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                        Log.d(TAG, "run: This is inside the version THing");
+//                        locationManager.getCurrentLocation(
+//                                GPS_PROVIDER,
+//                                new CancellationSignal(),
+//                                Executors.newSingleThreadExecutor(),
+//                                locationConsumer
+//                        );
+//                    }
+//                    else{
+//
+//                        Log.d(TAG, "run: Test");
+//                    }
+//
+//
+//
+//                    Location taskLocation = new Location((String) null);
+//                    dc.getAllTasks().forEach(e->{
+//                        taskLocation.setLongitude((float)e.getLon());
+//                        taskLocation.setLatitude((float)e.getLat());
+//                        Log.d(TAG, "run: Getting Location");
+//                        Log.d(TAG,
+//                              "run: TaskLocation Lat: "+ taskLocation.getLatitude()  +", Lon: " + taskLocation.getLongitude());
+//                        GPSHandler.getInstance().getLocalLocal();
+//                        Log.d(TAG, "run: LastLocation Lat: "+ lastLocation.getLatitude() +", Lon:" +
+//                                   " " + lastLocation.getLongitude());
+//
+//                        Log.d(TAG, "run: ===============================================");
+//
 //                        Location.distanceBetween(lat,lon, lastLocation.getLatitude(),
 //                                                 lastLocation.getLongitude(),results);
-
+//
 //	                    float dist = lastLocation.distanceTo(taskLocation);
 //                        LocationManager lm;
 //
@@ -192,19 +171,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 //                            Notification new
 //                        }
 
-                    });
+//                    });
 
 
 
 
 
-                } catch (SQLException throwables)
-                {
-                    throwables.printStackTrace();
-                };
-            }
-        }, 0, 10, TimeUnit.SECONDS);
-
+//                } catch (SQLException throwables)
+//                {
+//                    throwables.printStackTrace();
+//                };
+//            }
+//        }, 0, 10, TimeUnit.SECONDS);
+//
     }
     
     private void onCreateListeners(){

@@ -30,8 +30,8 @@
 
     <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="155dp"
+            android:layout_height="20dp"
             android:id="@+id/descTest"
             android:layout_marginTop="48dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -55,21 +55,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
-            app:layout_constraintStart_toEndOf="@+id/titleText"
-            app:layout_constraintHorizontal_bias="0.385"
+            app:layout_constraintHorizontal_bias="0.513"
             app:layout_constraintTop_toTopOf="@+id/titleText"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
             android:text="Longitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/descTest"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/descTest"
-            app:layout_constraintHorizontal_bias="0.361" />
+            app:layout_constraintHorizontal_bias="0.53"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="48dp" />
 
     <View
             android:id="@+id/divider"
